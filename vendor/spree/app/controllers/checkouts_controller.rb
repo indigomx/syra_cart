@@ -5,6 +5,7 @@ class CheckoutsController < Spree::BaseController
   before_filter :load_data
   before_filter :set_state
   before_filter :enforce_registration, :except => :register
+  before_filter :ensure_order_assigned_to_user, :except => :register
   before_filter :ensure_payment_methods
   helper :users
 
@@ -24,20 +25,20 @@ class CheckoutsController < Spree::BaseController
   update.before :clear_payments_if_in_payment_state
 
   # customized verison of the standard r_c update method (since we need to handle gateway errors, etc)
-  def update      
+  def update
     load_object
 
     # call the edit hooks for the current step in case we experience validation failure and need to edit again
     edit_hooks
     @checkout.enable_validation_group(@checkout.state.to_sym)
     @prev_state = @checkout.state
-    
+
     before :update
 
     begin
-      if object.update_attributes object_params
+      if @checkout.update_attributes object_params
         update_hooks
-        @order.update_totals!
+        @checkout.order.update_totals!
         after :update
         next_step
         if @checkout.completed_at
@@ -143,7 +144,8 @@ class CheckoutsController < Spree::BaseController
   end
 
   def next_step
-    @checkout.next!
+    @checkout.next! 
+    flash[:analytics] = "/checkout/#{object.state}"
     # call edit hooks for this next step since we're going to just render it (instead of issuing a redirect)
     edit_hooks
   end
@@ -158,9 +160,9 @@ class CheckoutsController < Spree::BaseController
       @checkout.payments.clear
     end
   end
-  
-  def load_available_payment_methods 
-    @payment_methods = PaymentMethod.available   
+
+  def load_available_payment_methods
+    @payment_methods = PaymentMethod.available(:front_end)
     if @checkout.payment and @checkout.payment.payment_method
       @payment_method = @checkout.payment.payment_method
     else
@@ -174,17 +176,17 @@ class CheckoutsController < Spree::BaseController
 
   def complete_order
     if @checkout.order.out_of_stock_items.empty?
-      flash[:notice] = t('order_processed_successfully')
+      self.notice = t('order_processed_successfully')
     else
-      flash[:notice] = t('order_processed_but_following_items_are_out_of_stock')
-      flash[:notice] += '<ul>'
+      self.notice = t('order_processed_but_following_items_are_out_of_stock')
+      self.notice += '<ul>'
       @checkout.order.out_of_stock_items.each do |item|
-        flash[:notice] += '<li>' + t(:count_of_reduced_by,
+        self.notice += '<li>' + t(:count_of_reduced_by,
                               :name => item[:line_item].variant.name,
                               :count => item[:count]) +
                           '</li>'
       end
-      flash[:notice] += '<ul>'
+      self.notice += '<ul>'
     end
   end
 
@@ -194,8 +196,9 @@ class CheckoutsController < Spree::BaseController
         @checkout.shipment.shipping_method = ship_method
         { :id => ship_method.id,
           :name => ship_method.name,
-          :rate => number_to_currency(ship_method.calculate_cost(@checkout.shipment)) }
-      end
+          :cost => ship_method.calculate_cost(@checkout.shipment)
+        }
+      end.sort_by{|r| r[:cost]}
     rescue Spree::ShippingError => ship_error
       flash[:error] = ship_error.to_s
       []
@@ -212,13 +215,21 @@ class CheckoutsController < Spree::BaseController
   def accurate_title
     I18n.t(:checkout)
   end
-  
+
   def ensure_payment_methods
-    if PaymentMethod.available.none?
+    if PaymentMethod.available(:front_end).none?
       flash[:error] = t(:no_payment_methods_available)
       redirect_to edit_order_path(params[:order_id])
       false
     end
   end
-  
+
+  # Make sure that the order is assigned to the current user if logged in
+  def ensure_order_assigned_to_user
+    load_object
+    if current_user and @order.user != current_user
+      @order.update_attribute(:user, current_user)
+    end
+  end
+
 end

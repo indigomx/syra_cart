@@ -1,0 +1,9 @@
+<h2>Invitado</h2>
+<% form_for @checkout, :url => register_order_checkout_url(@order), 
+                       :html => { :method => :post, :id => "checkout_form_registration"} do |f| %>
+  <p>
+    <%= f.label :email, "Mail" %><br />
+    <%= f.text_field :email, :class => 'title'  %>
+  </p>
+  <p><%= submit_tag "Continuar", :class => 'button primary' %></p>
+<% end %>

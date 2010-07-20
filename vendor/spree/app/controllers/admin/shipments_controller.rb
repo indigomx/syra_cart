@@ -7,7 +7,7 @@ class Admin::ShipmentsController < Admin::BaseController
 
   update.wants.html do
     if @order.in_progress?
-      redirect_to new_admin_order_payment_url(@order)
+      redirect_to admin_order_adjustments_url(@order)
     else
       redirect_to edit_object_url
     end
@@ -29,16 +29,17 @@ class Admin::ShipmentsController < Admin::BaseController
 
   def fire
     @shipment.send("#{params[:e]}!")
-    flash[:notice] = t('shipment_updated')
+    self.notice = t('shipment_updated')
     redirect_to :back
   end
 
   private
   def build_object
-    @object ||= end_of_association_chain.send parent? ? :build : :new, object_params
+    @object ||= end_of_association_chain.send parent? ? :build : :new
     @object.address ||= @order.ship_address
     @object.address ||= Address.new(:country_id => Spree::Config[:default_country_id])
     @object.shipping_method ||= @order.shipping_method
+    @object.attributes = object_params
     @object
   end
 
@@ -59,17 +60,16 @@ class Admin::ShipmentsController < Admin::BaseController
   end
 
   def update_after # copy back to order if instructions are enabled
-    if Spree::Config[:shipping_instructions]
-      @order.checkout.special_instructions = object_params[:special_instructions]
-      @order.save
-    end
+    @order.checkout.special_instructions = object_params[:special_instructions] if Spree::Config[:shipping_instructions]
+    @order.checkout.shipping_method = @order.shipment.shipping_method
+    @order.save
     recalculate_order
   end
 
   def assign_inventory_units
     return unless params.has_key? :inventory_units
-
-    params[:inventory_units].each { |id, value| @shipment.inventory_units << InventoryUnit.find(id) }
+    #params[:inventory_units].each { |id, value| @shipment.inventory_units << InventoryUnit.find(id) }
+    @shipment.inventory_unit_ids = params[:inventory_units].keys
   end
 
   def recalculate_order

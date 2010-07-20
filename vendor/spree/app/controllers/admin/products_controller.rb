@@ -13,8 +13,6 @@ class Admin::ProductsController < Admin::BaseController
 
   update.before :update_before
 
-  create.before :create_before
-
   create.response do |wants|
     # go to edit form after creating as new product
     wants.html {redirect_to edit_admin_product_url(Product.find(@product.id)) }
@@ -38,9 +36,9 @@ class Admin::ProductsController < Admin::BaseController
     end
 
     if @product.save
-      flash[:notice] = I18n.t("notice_messages.product_deleted")
+      self.notice = I18n.t("notice_messages.product_deleted")
     else
-      flash[:notice] = I18n.t("notice_messages.product_not_deleted")
+      self.notice = I18n.t("notice_messages.product_not_deleted")
     end
 
     respond_to do |format|
@@ -54,9 +52,9 @@ class Admin::ProductsController < Admin::BaseController
     @new = @product.duplicate
 
     if @new.save
-      flash[:notice] = I18n.t("notice_messages.product_cloned")
+      self.notice = I18n.t("notice_messages.product_cloned")
     else
-      flash[:notice] = I18n.t("notice_messages.product_not_cloned")
+      self.notice = I18n.t("notice_messages.product_not_cloned")
     end
 
     redirect_to edit_admin_product_url(@new)
@@ -69,9 +67,9 @@ class Admin::ProductsController < Admin::BaseController
     end
 
     def collection
-      unless request.xhr?
-        base_scope = end_of_association_chain
+      base_scope = end_of_association_chain
 
+      unless request.xhr?
         # Note: the SL scopes are on/off switches, so we need to select "not_deleted" explicitly if the switch is off
         # QUERY - better as named scope or as SL scope?
         if params[:search].nil? || params[:search][:deleted_at_not_null].blank?
@@ -81,27 +79,18 @@ class Admin::ProductsController < Admin::BaseController
         @search = base_scope.group_by_products_id.searchlogic(params[:search])
         @search.order ||= "ascend_by_name"
 
-        @collection = @search.paginate(:include  => {:variants => [:images, :option_values]},
-                                       :per_page => Spree::Config[:admin_products_per_page],
-                                       :page     => params[:page])
+        @collection = @search.paginate(:include   => {:variants => [:images, :option_values]},
+                                       :per_page  => Spree::Config[:admin_products_per_page],
+                                       :page      => params[:page])
       else
-        @collection = Product.find( :all,
-                                    :conditions => ["name like ?", "%#{params[:q]}%"],
-                                    :include =>  [{:variants => [:images,  {:option_values => :option_type}]}, :master, :images])
+        includes = [{:variants => [:images,  {:option_values => :option_type}]}, :master, :images]
 
-        @collection.concat Product.find( :all,
-                                    :conditions => ["variants.sku like ?", "%#{params[:q]}%"],
-                                    :include =>  [{:variants => [:images,  {:option_values => :option_type}]}, :master, :images])
+        @collection = base_scope.name_contains(params[:q]).all(:include => includes, :limit => 10)
+        @collection.concat base_scope.group_by_products_id.variants_including_master_sku_contains(params[:q]).all(:include => includes, :limit => 10)
 
         @collection.uniq!
       end
 
-    end
-
-    # set the default tax_category if applicable
-    def create_before
-      return unless Spree::Config[:default_tax_category]
-      @product.tax_category ||= TaxCategory.find_by_name Spree::Config[:default_tax_category]
     end
 
     def update_before

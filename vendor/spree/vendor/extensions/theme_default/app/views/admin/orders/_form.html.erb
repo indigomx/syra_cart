@@ -1,3 +1,5 @@
+<%=error_messages_for :line_item %>
+
 <% form_for(@order, :url => admin_order_url(@order), :html => { :method => :put}) do |f| %>
   <%= f.hidden_field :number %>
   <table class="index">
@@ -65,6 +67,11 @@
   <% end %>
 
 <% end %>
+
+<script type="text/javascript">
+  $('#order_tab_summary h5#order_total').html('<%= "#{t('total')}: #{number_to_currency(@order.total)}" %>');
+  $('#order_tab_summary h5#order_status').html('<%= "#{t('status')}: #{t(@order.state)}" %>');
+</script>
 
 <%= javascript_include_tag 'admin/orders/edit_form.js' %>
 

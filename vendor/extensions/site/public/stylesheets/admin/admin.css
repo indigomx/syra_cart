@@ -2,7 +2,9 @@
 #login-nav,
 #store-nav {
   float: right;
-   margin-top: 10px;}
+   margin-top: 10px;
+   color: #42210B;
+   }
   #language-bar li,
   #login-nav li,
   #store-nav li {
@@ -35,12 +37,12 @@ p.help-text {
 
 body {
   background-color: #C6914F;
-  color: #476D9B; }
+  color: #42210B; }
   a {
-    color: #4884BD; }
+    color: #42210B; }
     a:active,
     a:visited {
-      color: #4884BD; }
+      color: #42210B; }
   #header,
   #footer {
     position: relative;
@@ -52,10 +54,10 @@ body {
     color: #111;
     min-height: 500px; }
     #content a {
-      color: #3C7DFB; }
+      color: #42210B; }
       #content a:active,
       #content a:visited {
-        color: #3C7DFB; }
+        color: #42210B; }
     #content.with-sidebar {
       background: #fff url(../../images/admin/bg/content-back.png) right top repeat-y;
       padding-right: 340px;
@@ -73,7 +75,7 @@ body {
         #sidebar h3 {
           margin: 0 10px; }
           #sidebar h3 a {
-            color: #111;
+            color: #42210B;
             text-decoration: none; }
         #sidebar span.sku {
           display: block;
@@ -101,12 +103,12 @@ body {
               padding: 10px 20px 10px;
               outline: none;
               text-decoration: none;
-              color: #666 !important; }
+              color: #42210B !important; }
               #sidebar ul.sidebar li a:hover { background-color:#ddd }
               #sidebar ul.sidebar li.active a {
                 font-weight: bold;
                 background: url(../../images/admin/bg/menu-current.png) left center no-repeat;
-                color: #363 !important;
+                color: #42210B !important;
                 margin-left: -20px;
                 padding-left: 30px; }
         #sidebar .order-number,
@@ -119,7 +121,7 @@ body {
           -webkit-border-radius: 3px;
           float: right;
           background-color: #999;
-          color: #111;
+          color: #42210B;
           text-transform: uppercase; }
           #sidebar .order-status.new {
             background-color: #5D9C0F;
@@ -132,12 +134,12 @@ body {
     margin: 20px 10px 10px 10px;   }
     h1.logo a {
       background: url(../../images/admin/bg/spree_50.png) left center no-repeat;
-      padding-left: 120px;
+      padding-left: 280px;
       display: block;
       height: 50px;
       text-decoration: none;
       line-height: 50px;
-      color: #BBDAFD; }
+      color: #42210B; }
   #admin-menu { clear: both; }
   #admin-menu,
   #sub-menu {
@@ -161,50 +163,52 @@ body {
         #admin-menu ul li a,
         #sub-menu ul li a {
           display: block;
+		  height: 20px;
           padding: 10px 20px;
           color: #fff;
           text-decoration: none;
           outline: none; }
         #admin-menu ul li.selected a,
         #sub-menu ul li.selected a {
-          background-color: #0095da;
+          background-color: #8C4617;
+		  border-left: 1px solid #8C4617;
           }
         #admin-menu ul li.selected {
-          border-bottom:1px solid #0095DA;
+          border-bottom:1px solid #8C4617;
         }
   #IE7 #admin-menu {
     height: 39px; }
   #admin-menu {
-    background: #154e8c url(../../images/admin/bg/admin_tab_back.png) top left repeat-x;
-    border-top: 1px solid #4B83E2;
-    border-right: 1px solid #34599B;
-    border-bottom: 1px solid #41A6F0;
+    background: #42210B;
+    border-top: 1px solid #42210B;
+    border-right: 1px solid #42210B;
+    border-bottom: 1px solid #42210B;
     }
     #admin-menu ul {
       margin-bottom: -1px; }
       #admin-menu ul li:first-child {
-        border-left: 1px solid #34599B; }
+        }
       #admin-menu ul li.selected {
-        background: #0095da url(../../images/admin/bg/admin_tab_selected_back.png) top left repeat-x;
-        border-left: 1px solid #41A6F0;
-        border-top: 1px solid #41A6F0;
-        border-right: 1px solid #4986BF;
+        background: #42210B url(../../images/admin/bg/admin_tab_selected_back.png) top left repeat-x;
+        border-left: 1px solid #42210B;
+        border-top: 1px solid #42210B;
+        border-right: 1px solid #42210B;
         height: 40px;
         margin-top: -2px; }
   #sub-menu {
-    background: #0095da;
-    border-left: 1px solid #41A6F0;
-    border-right: 1px solid #4986BF; }
+    background: #8C4617;
+    border-left: 1px solid #8C4617;
+    border-right: 1px solid #8C4617; }
     #IE7 #sub-menu ul {
       height: 26px; }
     #sub-menu ul li a {
       padding: 3px 7px;
       margin: 10px 5px;
-      color: #154e8c;
+      color: #AAAAAA;
       background: none; }
     #sub-menu ul li.selected a {
-      background: #154e8c;
-      color: #9BC3FC;
+      background: #42210B;
+      color: #ffffff;
       -moz-border-radius: 3px;
       -webkit-border-radius: 3px; }
   #slide-content {
@@ -431,7 +435,7 @@ div#calculator-settings-warning {
 }
 #progress{
   display:none;
-  background:#154E8C url(../../images/admin/bg/admin_tab_back.png) repeat-x scroll left top;
+  background:#42210B;
   color:#fff;
   font-size:170%;
   height:25px;

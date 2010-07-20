@@ -1,0 +1,6 @@
+<div class="taxon">
+  <h2><a href="<%= seo_url(taxon) %>"> 
+  <img src="<%request.env["SERVER_ADDR"]%>/images/categorias/<%= taxon.name %>.png" alt="CATEGORIAS"/></a>
+  </h2>
+  <%= render :partial => "shared/products.html.erb", :locals => {:products => taxon_preview(taxon), :taxon => taxon} %>
+</div>

@@ -4,9 +4,33 @@ class Admin::LineItemsController < Admin::BaseController
   ssl_required
   actions :all, :except => :index
 
-  before_filter :check_order_contains, :only => :create
+  create.flash nil
+  update.flash nil
+  destroy.flash nil
+
+  #override r_c create action as we want to use order#add_variant instead of creating line_item
+  def create
+    load_object
+    variant = Variant.find(params[:line_item][:variant_id])
+
+    before :create
+
+    @order.add_variant(variant, params[:line_item][:quantity].to_i)
+
+    if @order.save
+      after :create
+      set_flash :create
+      response_for :create
+    else
+      after :create_fails
+      set_flash :create_fails
+      response_for :create_fails
+    end
+
+  end
 
   destroy.success.wants.html { render :partial => "admin/orders/form", :locals => {:order => @order}, :layout => false }
+  destroy.failure.wants.html { render :partial => "admin/orders/form", :locals => {:order => @order}, :layout => false }
 
   new_action.response do |wants|
     wants.html {render :action => :new, :layout => false}
@@ -16,27 +40,14 @@ class Admin::LineItemsController < Admin::BaseController
     wants.html { render :partial => "admin/orders/form", :locals => {:order => @order}, :layout => false}
   end
 
-  update.response do |wants|
-    wants.html { render :partial => "admin/orders/form", :locals => {:order => @order}, :layout => false}
-  end
+  update.success.wants.html { render :partial => "admin/orders/form", :locals => {:order => @order}, :layout => false}
+  update.failure.wants.html { render :partial => "admin/orders/form", :locals => {:order => @order}, :layout => false}
 
   destroy.after :recalulate_totals
   update.after :recalulate_totals
   create.after :recalulate_totals
 
   private
-  def check_order_contains
-    variant = Variant.find(params[:line_item][:variant_id])
-    @order = Order.find_by_number(params[:order_id])
-
-    if @order.contains?(variant)
-      @order.add_variant(variant, params[:line_item][:quantity].to_i)
-      @order.save
-
-      render :partial => "admin/orders/form", :locals => {:order => @order}, :layout => false
-    end
-  end
-
   def recalulate_totals
     unless @order.shipping_method.nil?
       @order.shipping_charges.each do |shipping_charge|
@@ -48,8 +59,11 @@ class Admin::LineItemsController < Admin::BaseController
       tax_charge.update_attributes(:amount => tax_charge.calculate_tax_charge)
     end
 
-    @order.update_totals(true)
-    @order.save
+    @order.checkout.enable_validation_group(@order.checkout.state.to_sym)
+    @order.update_totals!
 
+    unless @order.in_progress?
+      InventoryUnit.adjust_units(@order)
+    end
   end
 end

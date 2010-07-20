@@ -1,0 +1,58 @@
+en:
+  activerecord:
+    errors:
+      # The values :model, :attribute and :value are always available for interpolation
+      # The value :count is available when applicable. Can be used for pluralization.
+      messages:
+        inclusion: "no se encuentra dentro de la lista"
+        exclusion: "es reservado"
+        invalid: "es inv&aacute;lido"
+        confirmation: "no concuerdan los campos"
+        accepted: "debe de ser aceptado"
+        empty: "no puede estar vac&iacute;o"
+        blank: "no puede estar en blanco"
+        too_long: "es muy largo (m&aacute;ximo {{count}} caracteres)"
+        too_short: "es muy corto (m&iacute;nimo {{count}} caracteres)"
+        wrong_length: "no es del tama&ntilde corrector (debe de ser de {{count}} caracteres)"
+        taken: "ya ha sido ocupado"
+        not_a_number: "no es un n&uacute;mero"
+        greater_than: "debe de ser mayor a {{count}}"
+        greater_than_or_equal_to: "debe de ser mayor o igual a {{count}}"
+        equal_to: "debe ser igual a {{count}}"
+        less_than: "debe ser menor a {{count}}"
+        less_than_or_equal_to: "debe ser menor o igual a {{count}}"
+        odd: "debe ser impar"
+        even: "debe ser par"
+        record_invalid: "Errores en la validaci&oacute;n: {{errors}}"
+        # Append your own errors here or at the model/attributes scope.
+
+      full_messages:
+        format: "{{attribute}} {{message}}"
+
+      # You can define own errors for models or model attributes.
+      # The values :model, :attribute and :value are always available for interpolation.
+      #
+      # For example,
+      #   models:
+      #     user:
+      #       blank: "This is a custom blank message for {{model}}: {{attribute}}"
+      #       attributes:
+      #         login:
+      #           blank: "This is a custom blank message for User login"
+      # Will define custom blank validation message for User model and 
+      # custom blank validation message for login attribute of User model.
+      #models:
+        
+    # Translate model names. Used in Model.human_name().
+    #models:
+      # For example,
+      #   user: "Dude"
+      # will translate User model name to "Dude"
+    
+    # Translate model attribute names. Used in Model.human_attribute_name(attribute).
+    #attributes:
+      # For example,
+      #   user:
+      #     login: "Handle"
+      # will translate User attribute "login" as "Handle"
+

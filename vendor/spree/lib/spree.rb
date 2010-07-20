@@ -8,9 +8,9 @@ unless defined? Spree::Version
   module Spree
     module Version
       Major = '0'
-      Minor = '10'
-      Tiny  = '2'  
-      Pre   = nil
+      Minor = '11'
+      Tiny  = '0'  
+      Pre   = nil # 'beta'
 
       class << self
         def to_s

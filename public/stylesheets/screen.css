@@ -120,8 +120,8 @@ p img.right {
   padding: 0;
 }
 a {
-  text-decoration: underline;
-  color: #2e6ab1;
+  text-decoration: none;
+  color: #8C4617;
 }
 blockquote {
   margin: 1.5em;
@@ -312,6 +312,7 @@ body.two-col #content {
   position: relative;
   color: #2e6ab1;
   clear: both;
+  top:25px;
 }
 #header a { color: #2e6ab1; }
 #header a:hover { color: #eeeeee; }
@@ -559,9 +560,9 @@ ul#nav-bar li.cart-indicator a.full { background-image: url(../images/cart-empty
   padding: 0.8em;
 }
 .flash.notice {
-  background: #ccddff url(../images/shadow_top.png) 0px -50px repeat-x;
-  color: #556699;
-  border: 1px solid #99aacc;
+  background: #C6914F;
+  color: #42210B;
+  border: 1px solid #42210B;
 }
 .flash.errors {
   background: #f4b4b4 url(../images/shadow_top.png) 0px -50px repeat-x;
@@ -713,7 +714,7 @@ p a.button img { margin: 0 5px 0 0; }
 p button img { margin: 0 5px 0 0; }
 .prices { font-weight: bold;font-size:16px; }
 .prices #product-details .prices { font-size: 1.25em; }
-.price.selling { color: #2e6ab1; }
+.price.selling { color: #8C4617; }
 #product-details .price.selling { font-size: 1.50em; }
 .price.diff {
   font-style: italic;
@@ -810,7 +811,7 @@ ul.thumbnails li {
   padding: 3px;
   border: 1px solid #ffffff;
   min-height: 50px;
-  width: 100px;
+  width: 50px;
   position: relative;
 }
 ul.thumbnails li img {
@@ -1233,7 +1234,7 @@ div.moneda{
 	position: relative;
 	font-weight: bold;
 	width: 200px;
-	top: -20px;
+	top: -30px;
 	left: 750px;
 	font-size:14px;
 }

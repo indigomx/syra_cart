@@ -4,12 +4,16 @@ class Admin::OrdersController < Admin::BaseController
   before_filter :initialize_txn_partials
   before_filter :initialize_order_events
   before_filter :load_object, :only => [:fire, :resend, :history]
+  before_filter :ensure_line_items, :only => [:update]
 
-  update.wants.html do
-    if @order.bill_address.nil? || @order.ship_address.nil?
-      redirect_to edit_admin_order_checkout_url(@order)
-    else
-      redirect_to admin_order_url(@order)
+  update do
+    flash nil
+    wants.html do
+      if @order.bill_address.nil? || @order.ship_address.nil?
+        redirect_to edit_admin_order_checkout_url(@order)
+      else
+        redirect_to admin_order_url(@order)
+      end
     end
   end
 
@@ -24,7 +28,7 @@ class Admin::OrdersController < Admin::BaseController
     Order.transaction do
       @order.send("#{event}!")
     end
-    flash[:notice] = t('order_updated')
+    self.notice = t('order_updated')
   rescue Spree::GatewayError => ge
     flash[:error] = "#{ge.message}"
   ensure
@@ -33,7 +37,7 @@ class Admin::OrdersController < Admin::BaseController
 
   def resend
     OrderMailer.deliver_confirm(@order, true)
-    flash[:notice] = t('order_email_resent')
+    self.notice = t('order_email_resent')
     redirect_to :back
   end
 
@@ -45,6 +49,14 @@ class Admin::OrdersController < Admin::BaseController
   end
 
   def collection
+    if params[:search] && !params[:search][:created_at_after].blank?
+      params[:search][:created_at_after] = Time.zone.parse(params[:search][:created_at_after]).beginning_of_day rescue ""
+    end
+
+    if params[:search] && !params[:search][:created_at_before].blank?
+      params[:search][:created_at_before] = Time.zone.parse(params[:search][:created_at_before]).end_of_day rescue ""
+    end
+
     @search = Order.searchlogic(params[:search])
     @search.order ||= "descend_by_created_at"
 
@@ -69,6 +81,15 @@ class Admin::OrdersController < Admin::BaseController
   # Used for extensions which need to provide their own custom event links on the order details view.
   def initialize_order_events
     @order_events = %w{cancel resume}
+  end
+
+  def ensure_line_items
+    load_object
+    if @order.line_items.empty?
+      @order.errors.add(:line_items, t('activerecord.errors.messages.blank'))
+      @order.update_totals
+      render :edit
+    end
   end
 
 end

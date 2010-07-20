@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100306153445) do
+ActiveRecord::Schema.define(:version => 20100605152042) do
 
   create_table "addresses", :force => true do |t|
     t.string   "firstname"
@@ -27,10 +27,13 @@ ActiveRecord::Schema.define(:version => 20100306153445) do
     t.string   "alternative_phone"
   end
 
+  add_index "addresses", ["firstname"], :name => "index_addresses_on_firstname"
+  add_index "addresses", ["lastname"], :name => "index_addresses_on_lastname"
+
   create_table "adjustments", :force => true do |t|
     t.integer  "order_id"
     t.string   "type"
-    t.decimal  "amount",                 :precision => 8, :scale => 2
+    t.decimal  "amount"
     t.string   "description"
     t.integer  "position"
     t.datetime "created_at"
@@ -52,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20100306153445) do
     t.datetime "attachment_updated_at"
     t.integer  "attachment_width"
     t.integer  "attachment_height"
+    t.text     "alt"
   end
 
   add_index "assets", ["viewable_id"], :name => "index_assets_on_viewable_id"
@@ -77,6 +81,9 @@ ActiveRecord::Schema.define(:version => 20100306153445) do
     t.integer  "ship_address_id"
     t.integer  "shipping_method_id"
   end
+
+  add_index "checkouts", ["bill_address_id"], :name => "index_checkouts_on_bill_address_id"
+  add_index "checkouts", ["order_id"], :name => "index_checkouts_on_order_id"
 
   create_table "configurations", :force => true do |t|
     t.string   "name"
@@ -233,13 +240,14 @@ ActiveRecord::Schema.define(:version => 20100306153445) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.string   "display"
   end
 
   create_table "payments", :force => true do |t|
     t.integer  "payable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "amount",            :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "amount",            :default => 0.0, :null => false
     t.string   "payable_type"
     t.integer  "source_id"
     t.string   "source_type"
@@ -248,16 +256,14 @@ ActiveRecord::Schema.define(:version => 20100306153445) do
 
   create_table "preferences", :force => true do |t|
     t.string   "attribute",  :limit => 100, :null => false
-    t.integer  "owner_id",                  :null => false
+    t.integer  "owner_id",   :limit => 30,  :null => false
     t.string   "owner_type", :limit => 50,  :null => false
     t.integer  "group_id"
     t.string   "group_type", :limit => 50
-    t.text     "value"
+    t.text     "value",      :limit => 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "preferences", ["owner_id", "owner_type", "attribute", "group_id", "group_type"], :name => "index_preferences_on_owner_and_attribute_and_preference", :unique => true
 
   create_table "product_groups", :force => true do |t|
     t.string "name"
@@ -386,6 +392,8 @@ ActiveRecord::Schema.define(:version => 20100306153445) do
     t.string   "state"
   end
 
+  add_index "shipments", ["number"], :name => "index_shipments_on_number"
+
   create_table "shipping_categories", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -425,6 +433,7 @@ ActiveRecord::Schema.define(:version => 20100306153445) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_default",  :default => false
   end
 
   create_table "tax_rates", :force => true do |t|
@@ -442,15 +451,20 @@ ActiveRecord::Schema.define(:version => 20100306153445) do
   end
 
   create_table "taxons", :force => true do |t|
-    t.integer  "taxonomy_id",                :null => false
+    t.integer  "taxonomy_id",                      :null => false
     t.integer  "parent_id"
-    t.integer  "position",    :default => 0
-    t.string   "name",                       :null => false
+    t.integer  "position",          :default => 0
+    t.string   "name",                             :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "permalink"
     t.integer  "lft"
     t.integer  "rgt"
+    t.string   "icon_file_name"
+    t.string   "icon_content_type"
+    t.integer  "icon_file_size"
+    t.datetime "icon_updated_at"
+    t.text     "description"
   end
 
   add_index "taxons", ["parent_id"], :name => "index_taxons_on_parent_id"
@@ -466,7 +480,7 @@ ActiveRecord::Schema.define(:version => 20100306153445) do
   end
 
   create_table "transactions", :force => true do |t|
-    t.decimal  "amount",                     :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "amount",                     :default => 0.0, :null => false
     t.integer  "txn_type"
     t.string   "response_code"
     t.text     "avs_response"
@@ -480,8 +494,8 @@ ActiveRecord::Schema.define(:version => 20100306153445) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.string   "crypted_password"
-    t.string   "salt"
+    t.string   "crypted_password",          :limit => 128
+    t.string   "salt",                      :limit => 128
     t.string   "remember_token"
     t.string   "remember_token_expires_at"
     t.datetime "created_at"
@@ -489,8 +503,8 @@ ActiveRecord::Schema.define(:version => 20100306153445) do
     t.string   "persistence_token"
     t.string   "single_access_token"
     t.string   "perishable_token"
-    t.integer  "login_count",                             :default => 0, :null => false
-    t.integer  "failed_login_count",                      :default => 0, :null => false
+    t.integer  "login_count",                              :default => 0, :null => false
+    t.integer  "failed_login_count",                       :default => 0, :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
@@ -504,6 +518,7 @@ ActiveRecord::Schema.define(:version => 20100306153445) do
   end
 
   add_index "users", ["openid_identifier"], :name => "index_users_on_openid_identifier"
+  add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token"
 
   create_table "variants", :force => true do |t|
     t.integer  "product_id"
