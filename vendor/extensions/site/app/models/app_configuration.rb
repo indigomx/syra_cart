@@ -21,7 +21,7 @@ class AppConfiguration < Configuration
   preference :store_cvv, :boolean, :default => false
   preference :default_locale, :string, :default => 'mx'
   preference :allow_locale_switching, :boolean, :default => true
-  preference :default_country_id, :integer, :default => 214
+  preference :default_country_id, :integer, :default => 130
   preference :allow_backorders, :boolean, :default => true
   preference :allow_backorder_shipping, :boolean, :default => false # should only be true if you don't need to track inventory
   preference :track_inventory_levels, :boolean, :default => true #

@@ -268,7 +268,6 @@ div.left {
 }
 div.right {
   float: right;
-  width: 60%;
 }
 a { outline: none; }
 
@@ -860,6 +859,9 @@ ul.thumbnails li.selected { border-color: #999999; }
   border-right: 1px solid #eeeeee;
 }
 #product-variants { margin-bottom: 1em; }
+#product-variants h2 {
+  font-size: 17px;
+}
 #product-variants ul {
   list-style: none;
   margin: 0;
@@ -875,6 +877,7 @@ ul.thumbnails li.selected { border-color: #999999; }
   padding: 6px 0px;
   margin: 0px;
   font-weight: bold;
+  font-size: 13px;
   clear: both;
 }
 #product-images #main-image {

@@ -18,5 +18,8 @@ class SiteExtension < Spree::Extension
     # Spree::BaseController.class_eval do
     #   helper YourHelper
     # end
+    
+    AVAILABLE_LOCALES.clear.merge!('en-US' => "English US", 'mx' =>"Spanish MX") 
+    
   end
 end
