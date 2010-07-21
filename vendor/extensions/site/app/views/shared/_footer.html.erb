@@ -1,4 +1,7 @@
- <div class="container footer">
+  <div class="right">
+    <%= render 'shared/language_bar' if Spree::Config[:allow_locale_switching] %>
+  </div>
+<div class="container footer">
  	<img src="<%request.env["SERVER_ADDR"]%>/images/footer.png">
  
  </div> 

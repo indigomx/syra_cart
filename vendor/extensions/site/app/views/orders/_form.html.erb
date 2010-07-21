@@ -3,10 +3,10 @@
   <thead>
     <tr>
       <% hook :cart_items_headers do %>
-        <th colspan="2">Art&iacute;culo</th>
-        <th>Precio</th>
-        <th>Cantidad</th>
-        <th>Total</th>
+        <th colspan="2"><%= t("item") %></th>
+        <th><%= t("price") %></th>
+        <th><%= t("qty") %></th>
+        <th><%= t("total") %></th>
         <th></th>
       <% end %>
     </tr>
@@ -18,7 +18,7 @@
 
     <% if @order.line_items.empty? -%>
       <tr id="none">
-        <td colspan="5">Su carrito est&aacute; vac&iacute;o</td>
+        <td colspan="5"><%= t("your_cart_is_empty.") -%></td>
       </tr>
     <% end -%>
   </tbody>

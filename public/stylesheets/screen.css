@@ -268,7 +268,7 @@ div.left {
 }
 div.right {
   float: right;
-  width: 49%;
+  width: 60%;
 }
 a { outline: none; }
 
@@ -314,7 +314,7 @@ body.two-col #content {
   clear: both;
   top:25px;
 }
-#header a { color: #2e6ab1; }
+#header a { color: #42210B; }
 #header a:hover { color: #eeeeee; }
 #footer {
   padding-top: 2em;

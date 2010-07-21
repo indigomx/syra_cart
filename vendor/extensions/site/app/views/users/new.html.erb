@@ -3,7 +3,7 @@
 <% @body_id = 'signup' %>
 
 <div id="new-customer">
-  <h2>Nuevo cliente</h2>
+  <h2><%= t("new_customer") %></h2>
 
   <% hook :signup do %>
 
@@ -11,11 +11,11 @@
 
       <% hook :signup_inside_form do %>
         <%= render 'shared/user_form', :f => f %>
-        <p><%= submit_tag "Crear", :class => 'button primary' %></p>
+        <p><%= submit_tag t("create"), :class => 'button primary' %></p>
       <% end %>
 
     <% end %>
-    &oacute; <%= link_to "Cliente existente", login_path %>
+    <%= t("or") %> <%= link_to t("login_as_existing"), login_path %>
 
   <% end %>
 
