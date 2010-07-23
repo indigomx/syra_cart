@@ -1,5 +1,5 @@
 <h1>
-<%= image_tag("categorias/" + @taxon.name +".png")%>
+<%= image_tag("categorias/#{@taxon.name}.png")%>
 </h1>
 
 <% if @taxon.children.empty? || !params[:keywords].blank? %>
