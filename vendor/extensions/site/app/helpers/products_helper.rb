@@ -40,9 +40,9 @@ module ProductsHelper
 
   # generates nested url to product based on supplied taxon
   def seo_url(taxon, product = nil)
-#relative_root = ActionController::Base.relative_url_root.nil? ? "" : ActionController::Base.relative_url_root
- #return   relative_root + '/t/' + taxon.permalink if product.nil? 
- return '/t/' + taxon.permalink if product.nil?
+relative_root = ActionController::Base.relative_url_root.nil? ? "" : ActionController::Base.relative_url_root
+return   relative_root + '/t/' + taxon.permalink if product.nil? 
+# return '/t/' + taxon.permalink if product.nil?
     warn "DEPRECATION: the /t/taxon-permalink/p/product-permalink urls are "+
       "not used anymore. Use product_url instead. (called from #{caller[0]})"
     return product_url(product)
