@@ -1,4 +1,6 @@
-<h1><img src="<%request.env["SERVER_ADDR"]%>/images/categorias/<%= @taxon.name %>.png" alt="CATEGORIAS"/></h1>
+<h1>
+<%= image_tag("categorias/" + @taxon.name +".png")%>
+</h1>
 
 <% if @taxon.children.empty? || !params[:keywords].blank? %>
   <% hook :taxon_products do %>
