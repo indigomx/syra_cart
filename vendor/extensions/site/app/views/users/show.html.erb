@@ -1,31 +1,31 @@
-<h1>Mi cuenta</h1>
+<h1><%= t("my_account") %></h1>
 
 <% hook :account_summary do %>
 
 <table>
   <tr>
-    <td>Mail:</td>
+    <td><%= t("email") %>:</td>
     <td>
       <%= @user.email %>
     </td>
   </tr>
 </table>
-<p><%= link_to "Editar", edit_object_url %></p>
+<p><%= link_to t('edit'), edit_object_url %></p>
 
 <% end %>
 
 <% hook :account_my_orders do %>
 
-<h2>Mis pedidos</h2>
+<h2><%= t("my_orders") %></h2>
  
 <table class="order-summary" width="545">
   <thead>
     <tr>
-      <th>N&uacute;mero</th>
-      <th>Fecha</th>
-      <th>Estado</th>
-      <th>Cliente</th>
-      <th>Total</th>
+      <th><%= t("order_number") %></th>
+      <th><%= t("order_date") %></th>
+      <th><%= t("status") %></th>
+      <th><%= t("customer") %></th>
+      <th><%= t("total") %></th>
     </tr>
   </thead>
   <tbody>

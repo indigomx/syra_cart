@@ -1,17 +1,17 @@
 <fieldset id='shipping_method'>
-  <legend>M&eacute;todo de env&iacute;o</legend>
+  <legend><%= t("shipping_method") %></legend>
   <% checkout_form.fields_for :ship_address do |ship_address_form| %>
     <div class="inner">
       <div id="methods">
 
         <p class="field radios">
           <% if @available_methods.empty? %>
-            No hay formas de env&iacute;o disponibles
+            <%= t("no_shipping_methods_available") %>
           <% else %>
             <% @available_methods.each do |shipping_method| %>
               <label>
                 <%= radio_button(:checkout, :shipping_method_id, shipping_method[:id]) %>
-                <%= shipping_method[:name] %> <%= number_to_currency shipping_method[:cost] %>
+                <%= shipping_method[:name] %> <%= shipping_method[:rate] %>
               </label><br />
             <% end %>
           <% end %>
@@ -20,7 +20,7 @@
       </div>
       <% if Spree::Config[:shipping_instructions] %>
         <p id="minstrs">
-          <%= checkout_form.label :special_instructions, "Instrucciones de env&iacute;o" %><br />
+          <%= checkout_form.label :special_instructions, t("shipping_instructions") %><br />
           <%= checkout_form.text_area :special_instructions, :cols => 40, :rows => 7 -%>
         </p>
       <% end %>
@@ -29,5 +29,5 @@
 </fieldset>
 
 <div class="form-buttons">
-  <input type="submit" class="continue button primary" value="Continuar"/>
+  <input type="submit" class="continue button primary" value="<%=t("save_and_continue") %>"/>
 </div>
