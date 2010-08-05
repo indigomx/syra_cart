@@ -480,6 +480,7 @@ en:
   meta_keywords: "Meta Keywords"
   metadata: "Metadata"
   missing_required_information: "Missing Required Information"
+  moneda: "Currency"
   month: "Month"
   my_account: "My Account"
   my_orders: "My Orders"
@@ -566,6 +567,8 @@ en:
   out_of_stock_products: "Out of Stock Products"
   over_paid: "Over Paid"
   overview: Overview
+  overview_Ajustes: "Tax + shippment cost"
+  overview_precioNeto: Net-cost
   overview_welcome: "Welcome to your store overview, currently we do not have enough data to display the Overiew Dashboard.<br/><br/> The dashboard will display automatically once the system has sufficent orders to allow generation of the statistics."
   page_only_viewable_when_logged_in: You attempted to visit a page which can only be viewed when you are logged in
   page_only_viewable_when_logged_out: You attempted to visit a page which can only be viewed when you are logged out
