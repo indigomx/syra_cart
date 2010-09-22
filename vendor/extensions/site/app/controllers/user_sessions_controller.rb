@@ -24,7 +24,7 @@ class UserSessionsController < Spree::BaseController
   def destroy
     current_user_session.destroy
     session.clear
-    self.notice = "Ha cerrado su sesi&oacute;n"
+    self.notice = t("logged_out")
     redirect_to products_path
   end
 
@@ -64,7 +64,7 @@ class UserSessionsController < Spree::BaseController
 
         respond_to do |format|
           format.html {
-            self.notice = "Ha iniciado su sesi&oacute;n correctamente" unless session[:return_to]
+            self.notice = t("logged_in_succesfully") unless session[:return_to]
             redirect_back_or_default products_path
           }
           format.js {
@@ -75,7 +75,7 @@ class UserSessionsController < Spree::BaseController
       else
         respond_to do |format|
           format.html {
-            flash.now[:error] = "Usuario y/o contrase&ntilde;a incorrectos"
+            flash.now[:error] = t("login_failed")
             render :action => :new
           }
           format.js { render :json => false }

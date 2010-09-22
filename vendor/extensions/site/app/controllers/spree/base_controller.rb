@@ -107,7 +107,7 @@ class Spree::BaseController < ActionController::Base
   def require_user
     unless current_user
       store_location
-      self.notice = "P&aacute;gina &uacute;nicamente visible dentro de una sesi&oacute;n"
+      self.notice = I18n.t("page_only_viewable_when_logged_in")
       redirect_to new_user_session_url
       return false
     end
@@ -116,7 +116,7 @@ class Spree::BaseController < ActionController::Base
   def require_no_user
     if current_user
       store_location
-      self.notice = "P&aacute;gina &uacute;nicamente visible furea de sesi&oacute;n"
+      self.notice = I18n.t("page_only_viewable_when_logged_out")
       redirect_to root_url
       return false
     end
@@ -148,7 +148,7 @@ class Spree::BaseController < ActionController::Base
     respond_to do |format|
       format.html do
         if current_user
-          flash[:error] = "Error en los permisos de usuario"
+          flash[:error] = t("authorization_failure")
           redirect_to '/user_sessions/authorization_failure'
           next
         else

@@ -6,9 +6,9 @@ module ProductsHelper
     diff = product_price(variant, :format_as_currency => false) - product_price(variant.product, :format_as_currency => false)
     return nil if diff == 0
     if diff > 0
-      "(#{"Agregar"}: #{format_price diff.abs})"
+      "(#{t("add")}: #{format_price diff.abs})"
     else
-      "(#{"Quitar"}: #{format_price diff.abs})"
+      "(#{t("subtract")}: #{format_price diff.abs})"
     end
   end
 

@@ -17,11 +17,11 @@ module Spree::BaseHelper
     path = cart_path
     order = Order.find_or_create_by_id(session[:order_id]) unless session[:order_id].blank?
     css_class = nil
-    text = "Carrito de compras:<span style='color:#FFFFFF;'> 0 items</span>"
+    text = "#{t('cart')}:<span style='color:#FFFFFF;'> 0 items</span>"
     unless order.nil?
       item_count = order.line_items.inject(0) { |kount, line_item| kount + line_item.quantity }
       return "" if current_page?(path)
-      text = "Carrito de compras:<span style='color:#FFFFFF;'> #{item_count} items</span> #{order_price(order)}"
+      text = "#{t('cart')}:<span style='color:#FFFFFF;'> #{item_count} items</span> #{order_price(order)}"
       css_class = 'full' if item_count > 0
     end
     link_to text, path, :class => css_class

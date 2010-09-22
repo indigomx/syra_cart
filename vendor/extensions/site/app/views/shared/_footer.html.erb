@@ -3,5 +3,9 @@
  <div class="right">
     <%= render 'shared/language_bar' if Spree::Config[:allow_locale_switching] %>
   </div> 	
-      <%= image_tag("footer.png")%>
+      <%= image_tag("footer.png", :usemap=>'#Map2')%>
+      <map name="Map2" id="Map2">
+          <area shape="rect" coords="7,15,160,58" href="#" />
+          <area shape="rect" coords="167,15,255,60" href="http://www.cocoletas.com.mx/" />
+      </map>
   </div> 

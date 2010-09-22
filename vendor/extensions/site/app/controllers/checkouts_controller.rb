@@ -50,7 +50,7 @@ class CheckoutsController < Spree::BaseController
       end
     rescue Spree::GatewayError => ge
       logger.debug("#{ge}:\n#{ge.backtrace.join("\n")}")
-      flash.now[:error] = "Tarjeta de cr&eacute;dito inv&aacute;lida" + ": #{ge.message}"
+      flash.now[:error] = t("unable_to_authorize_credit_card") + ": #{ge.message}"
     end
 
     render 'edit'
@@ -176,9 +176,9 @@ class CheckoutsController < Spree::BaseController
 
   def complete_order
     if @checkout.order.out_of_stock_items.empty?
-      self.notice = "Su orden se ha realizado correctamente"
+      self.notice = t('order_processed_successfully')
     else
-      self.notice = "Su orden se ha realizado, pero no tenemos en existencia los siguientes art&iacute;culos "
+      self.notice = t('order_processed_but_following_items_are_out_of_stock')
       self.notice += '<ul>'
       @checkout.order.out_of_stock_items.each do |item|
         self.notice += '<li>' + t(:count_of_reduced_by,
