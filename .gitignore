@@ -12,6 +12,7 @@ httpd
 pgsql
 config/*-public.asc
 config/database.yml
+config/database.yml.local
 config/mongrel_cluster.yml
 config/deploy.rb
 db/*.sql
