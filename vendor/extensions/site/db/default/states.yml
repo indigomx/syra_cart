@@ -1,4 +1,5 @@
 --- 
+# USA
 states_043: 
   name: Michigan
   country_id: "214"
@@ -254,3 +255,159 @@ states_009:
   country_id: "214"
   id: "91367981"
   abbr: WV
+# MX
+states_bcn:
+  name: Baja California
+  country_id: "130"
+  id: null
+  abbr: BCN
+states_bcs:
+ name: Baja California Sur
+ country_id: "130"
+ id: null
+ abbr: BCS
+states_cam:
+  name: Campeche
+  country_id: "130"
+  id: null
+  abbr: CAM
+states_chp:
+  name: Chiapas
+  country_id: "130"
+  id: null
+  abbr: CHP
+states_chh:
+  name: Chihuahua
+  country_id: "130"
+  id: null
+  abbr: CHH
+states_coa:
+  name: Coahuila
+  country_id: "130"
+  id: null
+  abbr: COA
+states_col:
+  name: Colima
+  country_id: "130"
+  id: null
+  abbr: COL
+states_dif:
+  name: Distrito Federal
+  country_id: "130"
+  id: null
+  abbr: DIF
+states_dur:
+  name: Durango
+  country_id: "130"
+  id: null
+  abbr: DUR
+states_gua:
+  name: Guanajuato
+  country_id: "130"
+  id: null
+  abbr: GUA
+states_gro:
+  name: Guerrero
+  country_id: "130"
+  id: null
+  abbr: GRO
+states_hid:
+  name: Hidalgo
+  country_id: "130"
+  id: null
+  abbr: HID
+states_jal:
+  name: Jalisco
+  country_id: "130"
+  id: null
+  abbr: JAL
+states_mex:
+  name: México
+  country_id: "130"
+  id: null
+  abbr: MEX
+states_mic:
+  name: Michoacán
+  country_id: "130"
+  id: null
+  abbr: MIC
+states_mor:
+  name: Morelos
+  country_id: "130"
+  id: null
+  abbr: MOR
+states_nay:
+  name: Nayarit
+  country_id: "130"
+  id: null
+  abbr: NAY
+states_nle:
+  name: Nuevo León
+  country_id: "130"
+  id: null
+  abbr: NLE
+states_oax:
+  name: Oaxaca
+  country_id: "130"
+  id: null
+  abbr: OAX
+states_pue:
+  name: Puebla
+  country_id: "130"
+  id: null
+  abbr: PUE
+states_que:
+  name: Querétaro
+  country_id: "130"
+  id: null
+  abbr: QUE
+states_roo:
+  name: Quintana Roo
+  country_id: "130"
+  id: null
+  abbr: ROO
+states_slp:
+  name: San Luis Potosí
+  country_id: "130"
+  id: null
+  abbr: SLP
+states_sin:
+  name: Sinaloa
+  country_id: "130"
+  id: null
+  abbr: SIN
+states_son:
+  name: Sonora
+  country_id: "130"
+  id: null
+  abbr: SON
+states_tab:
+  name: Tabasco
+  country_id: "130"
+  id: null
+  abbr: TAB
+states_tam:
+  name: Tamaulipas
+  country_id: "130"
+  id: null
+  abbr: TAM
+states_tla:
+  name: Tlaxcala
+  country_id: "130"
+  id: null
+  abbr: TLA
+states_ver:
+  name: Veracruz
+  country_id: "130"
+  id: null
+  abbr: VER
+states_yuc:
+  name: Yucatán
+  country_id: "130"
+  id: null
+  abbr: YUC
+states_zac:
+  name: Zacatecas
+  country_id: "130"
+  id: null
+  abbr: ZAC
