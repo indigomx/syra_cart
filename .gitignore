@@ -18,6 +18,8 @@ config/deploy.rb
 db/*.sql
 db/*.sqlite3*
 db/schema.rb
+db/schema.rb.old
+db/data.yml
 doc/**/*
 lib/products_index_profiler.rb
 log/*.log
