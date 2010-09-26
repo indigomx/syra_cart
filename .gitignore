@@ -17,8 +17,6 @@ config/mongrel_cluster.yml
 config/deploy.rb
 db/*.sql
 db/*.sqlite3*
-db/schema.rb
-db/schema.rb.old
 db/data.yml
 doc/**/*
 lib/products_index_profiler.rb
@@ -26,7 +24,7 @@ log/*.log
 sandbox
 testapp
 tmp
-vendor/rails
+vendor/plugins
 coverage/*
 var
 nbproject

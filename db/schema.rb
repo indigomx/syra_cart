@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(:version => 20100605152042) do
   create_table "adjustments", :force => true do |t|
     t.integer  "order_id"
     t.string   "type"
-    t.decimal  "amount"
+    t.decimal  "amount",                 :precision => 8, :scale => 2
     t.string   "description"
     t.integer  "position"
     t.datetime "created_at"
@@ -247,7 +247,7 @@ ActiveRecord::Schema.define(:version => 20100605152042) do
     t.integer  "payable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "amount",            :default => 0.0, :null => false
+    t.decimal  "amount",            :precision => 8, :scale => 2, :default => 0.0, :null => false
     t.string   "payable_type"
     t.integer  "source_id"
     t.string   "source_type"
@@ -256,14 +256,16 @@ ActiveRecord::Schema.define(:version => 20100605152042) do
 
   create_table "preferences", :force => true do |t|
     t.string   "attribute",  :limit => 100, :null => false
-    t.integer  "owner_id",   :limit => 30,  :null => false
+    t.integer  "owner_id",                  :null => false
     t.string   "owner_type", :limit => 50,  :null => false
     t.integer  "group_id"
     t.string   "group_type", :limit => 50
-    t.text     "value",      :limit => 255
+    t.text     "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "preferences", ["owner_id", "owner_type", "attribute", "group_id", "group_type"], :name => "index_preferences_on_owner_and_attribute_and_preference", :unique => true
 
   create_table "product_groups", :force => true do |t|
     t.string "name"
@@ -480,7 +482,7 @@ ActiveRecord::Schema.define(:version => 20100605152042) do
   end
 
   create_table "transactions", :force => true do |t|
-    t.decimal  "amount",                     :default => 0.0, :null => false
+    t.decimal  "amount",                     :precision => 8, :scale => 2, :default => 0.0, :null => false
     t.integer  "txn_type"
     t.string   "response_code"
     t.text     "avs_response"
@@ -494,8 +496,8 @@ ActiveRecord::Schema.define(:version => 20100605152042) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.string   "crypted_password",          :limit => 128
-    t.string   "salt",                      :limit => 128
+    t.string   "crypted_password"
+    t.string   "salt"
     t.string   "remember_token"
     t.string   "remember_token_expires_at"
     t.datetime "created_at"
@@ -503,8 +505,8 @@ ActiveRecord::Schema.define(:version => 20100605152042) do
     t.string   "persistence_token"
     t.string   "single_access_token"
     t.string   "perishable_token"
-    t.integer  "login_count",                              :default => 0, :null => false
-    t.integer  "failed_login_count",                       :default => 0, :null => false
+    t.integer  "login_count",                             :default => 0, :null => false
+    t.integer  "failed_login_count",                      :default => 0, :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
