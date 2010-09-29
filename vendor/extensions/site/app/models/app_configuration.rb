@@ -3,8 +3,8 @@ class AppConfiguration < Configuration
   MAIL_AUTH = ['none', 'plain', 'login', 'cram_md5']
   SECURE_CONNECTION_TYPES = ['None','SSL','TLS']
 
-  preference :site_name, :string, :default => 'Spree Demo Site'
-  preference :site_url, :string, :default => 'demo.spreecommerce.com'
+  preference :site_name, :string, :default => 'Syra'
+  preference :site_url, :string, :default => 'tienda.syra.com.mx'
   preference :enable_mail_delivery, :boolean, :default => false
   preference :mail_host, :string, :default => 'localhost'
   preference :mail_domain, :string, :default => 'localhost'
@@ -31,9 +31,9 @@ class AppConfiguration < Configuration
   preference :admin_products_per_page, :integer, :default => 10
   preference :admin_pgroup_preview_size, :integer, :default => 10
   preference :products_per_page, :integer, :default => 10
-  preference :logo, :string, :default => '/images/admin/bg/spree_50.png'
+  preference :logo, :string, :default => '/images/syra.png'
   preference :stylesheets, :string, :default => 'screen' # Comma separate multiple stylesheets, e.g. 'screen,mystyle'
-  preference :admin_interface_logo, :string, :default => "spree/spree.jpg"
+  preference :admin_interface_logo, :string, :default => "/images/admin/bg/syra.png"
   preference :allow_ssl_in_production, :boolean, :default => true
   preference :allow_ssl_in_development_and_test, :boolean, :default => false
   preference :allow_guest_checkout, :boolean, :default => true
