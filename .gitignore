@@ -31,4 +31,4 @@ nbproject
 tags
 *.swp
 test_app
-public/assets/**/*
+public

@@ -1,7 +1,3 @@
-<h1>
-<%= image_tag("categorias/#{@taxon.name}.png")%>
-</h1>
-
 <% if @taxon.children.empty? || !params[:keywords].blank? %>
   <% hook :taxon_products do %>
     <%= render :partial => "shared/products", :locals => {:products => @products, :taxon => @taxon } %>
