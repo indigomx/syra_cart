@@ -21,6 +21,7 @@ db/data.yml
 doc/**/*
 lib/products_index_profiler.rb
 log/*.log
+log
 sandbox
 testapp
 tmp
@@ -31,4 +32,4 @@ nbproject
 tags
 *.swp
 test_app
-public
+/public
