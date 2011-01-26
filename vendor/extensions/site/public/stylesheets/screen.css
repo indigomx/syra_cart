@@ -1410,12 +1410,13 @@ div#checkout #payment-methods li.last {
 
 div.menu{
 	position:relative;
-	text-align: right;
+	text-align: center;
 	top:5px;
-	#left: 50%;
-	#margin-left: -475px;
+	left: 50%;
+	margin-left: -475px;
+    padding-left: 140px;
 	height: 60px;
-	width: 970px;
+	width: 850px;
 	font-size: 20px;
 	text-decoration: none;
 }
