@@ -12,7 +12,6 @@
     <% if Spree::Config[:show_zero_stock_products] || product.has_stock? %>
       <li id="product_<%= product.id %>">
         <%= link_to product_image(product), product %>
-        <%= link_to product.name, product, :class => 'info' %>
       </li>
     <% end %>
   <% end %>
