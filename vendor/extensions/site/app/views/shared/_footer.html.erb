@@ -1,11 +1,11 @@
- 
+
 <div class="container footer">
- <div class="right">
+  <div class="right">
     <%= render 'shared/language_bar' if Spree::Config[:allow_locale_switching] %>
-  </div> 	
-      <%= image_tag("footer.png", :usemap=>'#Map2')%>
-      <map name="Map2" id="Map2">
-          <area shape="rect" coords="7,15,160,58" href="#" />
-          <area shape="rect" coords="167,15,255,60" href="http://www.cocoletas.com.mx/" />
-      </map>
-  </div> 
+  </div>
+  <%= image_tag("footer.png", :usemap=>'#footerMap')%>
+  <map id="footerMap" name="footerMap">
+      <area shape="rect" coords="5,20,122,55" href="http://www.facebook.com/profile.php?id=100001409808134&sk=wall" target="_blank"/>
+      <area shape="rect" coords="137,20,205,55" href="http://www.cocoletas.com.mx/" target="_blank"/>
+  </map>
+</div>
